@@ -3,6 +3,10 @@ from django.http import HttpResponse, HttpResponseNotFound
 # Create your views here.
 
 
+def days_week_with_number(request, day):
+    return HttpResponse(day)
+    
+
 def days_week(request, day):
     quote_text = None
     if day == 'monday':
