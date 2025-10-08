@@ -6,7 +6,7 @@
 
 
 {% block content %}
-    
+    {% include './includes/partial.html' %}
     <h1>Lista de Días | Frases Motivacionales</h1>
 
     
@@ -19,7 +19,7 @@
     </ul>
     
 
-
+    {% include './includes/endpartial.html' with days=days name="Horacio" %}
 
 {% endblock content %}
     
