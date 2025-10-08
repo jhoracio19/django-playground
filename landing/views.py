@@ -4,9 +4,11 @@ from datetime import date
 
 def home(request):
     today = date.today()
+    stack = ['Python', 'JavaScript', 'PHP', 'Django', 'Golang']
     return render(request, "landing/landing.html", {
-        "name" : "José Horacio",
+        "name" : "Horacio",
         "lastname" : "Ahuactzin",
         "age" : 21,
         "today" : today,
+        "stack" : stack 
     })
