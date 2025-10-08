@@ -1,6 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from datetime import date
 # Create your views here.
 
 def home(request):
-    return HttpResponse("<h1>works...</h1>")
+    today = date.today()
+    return render(request, "landing/landing.html", {
+        "name" : "José Horacio",
+        "lastname" : "Ahuactzin",
+        "age" : 21,
+        "today" : today,
+    })
