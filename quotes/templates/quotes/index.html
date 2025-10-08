@@ -1,8 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     Listado de Quotes
 {% endblock title %}
+{% block page_style %}
+    <link rel="stylesheet" href="{% static 'quotes/quotes_styles.css' %}">
+{% endblock page_style %}
 
 
 {% block content %}
