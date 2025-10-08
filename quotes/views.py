@@ -13,15 +13,10 @@ days_of_week = {
     "sunday" : "Da un poquito mas, todos los dias",
 }
 def index(request):
-    list_items = ""
     days = list(days_of_week.keys())
-    
-    for day in days:
-        day_path = reverse("day-quote", args=[day])
-        list_items += f"<li><a href='{day_path}'>{day}</a></li>"
-    
-    response_html = f"<ul>{list_items}</ul>"
-    return HttpResponse(response_html)
+    return render(request, "quotes/index.html", {
+        "days": days
+    })
 
 def days_week_with_number(request, day):
     days = list(days_of_week.keys())
