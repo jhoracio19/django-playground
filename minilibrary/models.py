@@ -28,6 +28,10 @@ class Book(models.Model):
     recommended_by = models.ManyToManyField(
         get_user_model(), through="Recommendation", related_name="recommendations")
     
+    class Meta:
+        verbose_name = "Libro"
+        verbose_name_plural = "Libros"
+    
     def __str__(self):
         return self.title
 
