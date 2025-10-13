@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
-    birt_date = models.DateField(null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
     
     def __str__(self):
         return self.name
@@ -25,6 +25,8 @@ class Book(models.Model):
     pages = models.IntegerField()
     isbn = models.CharField(max_length=50)
     genres = models.ManyToManyField(Genre, related_name="books")
+    recommended_by = models.ManyToManyField(
+        get_user_model(), through="Recommendation", related_name="recommendations")
     
     def __str__(self):
         return self.title
@@ -56,3 +58,12 @@ class Loan(models.Model):
     
     def __str__(self):
         return f"{self.user} -> {self.book.title} ({'Devuelto' if self.is_returned else 'Prestado'})"
+
+class Recommendation(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    recommended_at = models.DateTimeField(auto_now_add=True)
+    note = models.TextField(blank=True)
+    
+    class Meta:
+        unique_together = ('user', 'book')
