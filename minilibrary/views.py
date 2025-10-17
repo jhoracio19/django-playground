@@ -1,6 +1,7 @@
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from .models import Book
+from django.db.models import Q
 
 
 # Create your views here.
@@ -8,19 +9,17 @@ from .models import Book
 def index(request):
     try:
         books = Book.objects.all()
-        author_id = request.GET.get('author')
-        genre_id = request.GET.get('genre')
+        query = request.GET.get("query_search")
         
-        if author_id:
-            books = books.filter(author_id=author_id)
-        
-        if genre_id:
-            books = books.filter(genres_id= genre_id)
+        if query:
+            books = books.filter(
+                Q(title__icontains=query) | Q(author__name__icontains=query)
+            )
+
         return render(request, "minilibrary/minilibrary.html",{
-            'text' : "Hola desde la vista",
-            'name' : 'HORACIO',
-            'author' : author_id,
-            'books' : books
+            "books": books,
+            "query": query
+            
         })
     except Exception:
         return HttpResponseNotFound("Página no encontrada")
